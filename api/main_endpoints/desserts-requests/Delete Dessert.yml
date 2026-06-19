@@ -1,0 +1,21 @@
+info:
+  name: Delete Dessert
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/Dessert/deleteDessert
+  body:
+    type: json
+    data: |-
+      {
+        "_id": "6a34e5f412edd300b7f61231"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

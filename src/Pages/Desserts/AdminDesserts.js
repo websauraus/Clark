@@ -122,137 +122,143 @@ export default function DessertPage() {
       </div>
 
       <div className="relative overflow-x-auto mt-10">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Title
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Description
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Rating
-              </th>
-              <th scope="col" className="px-6 py-3"></th>
-            </tr>
-          </thead>
+        {desserts.length === 0 ? (
+          <p className="text-2xl font-semibold text-gray-600">
+            No desserts yet!!
+          </p>
+        ) : (
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Title
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Description
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Rating
+                </th>
+                <th scope="col" className="px-6 py-3"></th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {desserts.map((dessert) => {
-              const isEditing = editingId === dessert._id;
+            <tbody>
+              {desserts.map((dessert) => {
+                const isEditing = editingId === dessert._id;
 
-              return (
-                <tr
-                  key={dessert._id}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
-                  {isEditing ? (
-                    <>
-                      <td className="px-6 py-4">
-                        <input
-                          className={INPUT_CLASS}
-                          value={editedDessert.title}
-                          onChange={(e) =>
-                            setEditedDessert({
-                              ...editedDessert,
-                              title: e.target.value,
-                            })
-                          }
-                        />
-                      </td>
-
-                      <td className="px-6 py-4">
-                        <input
-                          className={INPUT_CLASS}
-                          value={editedDessert.description}
-                          onChange={(e) =>
-                            setEditedDessert({
-                              ...editedDessert,
-                              description: e.target.value,
-                            })
-                          }
-                        />
-                      </td>
-
-                      <td className="px-6 py-4">
-                        <input
-                          className={INPUT_CLASS}
-                          value={editedDessert.rating}
-                          onChange={(e) =>
-                            setEditedDessert({
-                              ...editedDessert,
-                              rating: e.target.value,
-                            })
-                          }
-                        />
-                      </td>
-
-                      <td className="px-6 py-4">
-                        <button
-                          className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white"
-                          onClick={async () => {
-                            await editDessert(
-                              {
+                return (
+                  <tr
+                    key={dessert._id}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    {isEditing ? (
+                      <>
+                        <td className="px-6 py-4">
+                          <input
+                            className={INPUT_CLASS}
+                            value={editedDessert.title}
+                            onChange={(e) =>
+                              setEditedDessert({
                                 ...editedDessert,
-                                _id: dessert._id,
-                              },
-                              user.token,
-                            );
+                                title: e.target.value,
+                              })
+                            }
+                          />
+                        </td>
 
-                            setEditingId(null);
-                            getDessertsFromDB();
-                          }}
+                        <td className="px-6 py-4">
+                          <input
+                            className={INPUT_CLASS}
+                            value={editedDessert.description}
+                            onChange={(e) =>
+                              setEditedDessert({
+                                ...editedDessert,
+                                description: e.target.value,
+                              })
+                            }
+                          />
+                        </td>
+
+                        <td className="px-6 py-4">
+                          <input
+                            className={INPUT_CLASS}
+                            value={editedDessert.rating}
+                            onChange={(e) =>
+                              setEditedDessert({
+                                ...editedDessert,
+                                rating: e.target.value,
+                              })
+                            }
+                          />
+                        </td>
+
+                        <td className="px-6 py-4">
+                          <button
+                            className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white"
+                            onClick={async () => {
+                              await editDessert(
+                                {
+                                  ...editedDessert,
+                                  _id: dessert._id,
+                                },
+                                user.token,
+                              );
+
+                              setEditingId(null);
+                              getDessertsFromDB();
+                            }}
+                          >
+                            Save
+                          </button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                          Save
-                        </button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {dessert.title}
-                      </th>
+                          {dessert.title}
+                        </th>
 
-                      <td className="px-6 py-4">{dessert.description}</td>
+                        <td className="px-6 py-4">{dessert.description}</td>
 
-                      <td className="px-6 py-4">{dessert.rating}</td>
+                        <td className="px-6 py-4">{dessert.rating}</td>
 
-                      <td className="px-6 py-4 flex gap-2">
-                        <button
-                          className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white"
-                          onClick={() => {
-                            setEditingId(dessert._id);
-                            setEditedDessert({
-                              title: dessert.title,
-                              description: dessert.description,
-                              rating: dessert.rating,
-                            });
-                          }}
-                        >
-                          Edit
-                        </button>
+                        <td className="px-6 py-4 flex gap-2">
+                          <button
+                            className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white"
+                            onClick={() => {
+                              setEditingId(dessert._id);
+                              setEditedDessert({
+                                title: dessert.title,
+                                description: dessert.description,
+                                rating: dessert.rating,
+                              });
+                            }}
+                          >
+                            Edit
+                          </button>
 
-                        <button
-                          className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white"
-                          onClick={async () => {
-                            await deleteDessert(dessert, user.token);
-                            getDessertsFromDB();
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </>
-                  )}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                          <button
+                            className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white"
+                            onClick={async () => {
+                              await deleteDessert(dessert, user.token);
+                              getDessertsFromDB();
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

@@ -21,40 +21,46 @@ export default function DessertPage() {
       </h1>
 
       <div className="relative overflow-x-auto mt-10">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Title
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Description
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Rating
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {desserts.map((dessert) => {
-              return (
-                <tr
-                  key={dessert._id}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        {desserts.length === 0 ? (
+          <p className="text-2xl font-semibold text-gray-600">
+            No desserts yet!!
+          </p>
+        ) : (
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Title
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Description
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Rating
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {desserts.map((dessert) => {
+                return (
+                  <tr
+                    key={dessert._id}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
-                    {dessert.title}
-                  </th>
-                  <td className="px-6 py-4">{dessert.description}</td>
-                  <td className="px-6 py-4">{dessert.rating}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {dessert.title}
+                    </th>
+                    <td className="px-6 py-4">{dessert.description}</td>
+                    <td className="px-6 py-4">{dessert.rating}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

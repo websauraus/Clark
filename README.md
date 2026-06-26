@@ -1,4 +1,4 @@
 # Dessert Problem
-<img width="1688" height="843" alt="image" src="https://github.com/user-attachments/assets/c74c7e58-2ce4-4a9a-b44f-de148a1d86b6" />
-<img width="1859" height="496" alt="image" src="https://github.com/user-attachments/assets/79e6b072-abcb-4ef5-9ad3-ea31de2be93f" />
-<img width="1859" height="496" alt="image" src="https://github.com/user-attachments/assets/63702a65-0ef2-44a9-b2b8-ec9c5df740d2" />
+<img width="1861" height="767" alt="image" src="https://github.com/user-attachments/assets/d6a998de-24a2-43fb-bfe5-6814a2577df0" />
+<img width="1861" height="422" alt="image" src="https://github.com/user-attachments/assets/83cdfebd-aa5b-40b8-a4bf-b39a1ae13ec3" />
+<img width="1861" height="422" alt="image" src="https://github.com/user-attachments/assets/f4135e90-b2c5-4240-8bf5-d2753ab5d5f0" />

@@ -17,7 +17,7 @@ export default function DessertPage() {
   return (
     <div className="m-10">
       <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Welcome to the Dessert Page!!
+        Desserts Page
       </h1>
 
       <div className="relative overflow-x-auto mt-10">

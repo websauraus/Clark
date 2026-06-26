@@ -36,7 +36,7 @@ export default function DessertPage() {
   return (
     <div className="m-10">
       <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Welcome to the Admin Dessert Page!!
+        Desserts Admin Page
       </h1>
 
       <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 grid-cols-full sm:grid-cols-6">

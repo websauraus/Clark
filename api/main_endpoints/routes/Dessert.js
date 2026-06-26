@@ -1,18 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Dessert = require('../models/Dessert');
-const {
-  OK,
-  BAD_REQUEST,
-  NOT_FOUND,
-  FORBIDDEN,
-  UNAUTHORIZED
-} = require('../../util/constants').STATUS_CODES;
-const {
-  OFFICER
-} = require('../../util/constants').MEMBERSHIP_STATE;
-const { decodeToken } = require('../util/token-functions');
-const User = require('../models/User.js');
+const Dessert = require("../models/Dessert");
+const { OK, BAD_REQUEST, NOT_FOUND, FORBIDDEN, UNAUTHORIZED } =
+  require("../../util/constants").STATUS_CODES;
+const { OFFICER } = require("../../util/constants").MEMBERSHIP_STATE;
+const { decodeToken } = require("../util/token-functions");
+const User = require("../models/User.js");
 
 async function verifyDessertAccess(req, res, next) {
   const decoded = await decodeToken(req, OFFICER);
@@ -30,15 +23,15 @@ async function verifyDessertAccess(req, res, next) {
   next();
 }
 
-router.get('/getDesserts', (req, res) => {
+router.get("/getDesserts", (req, res) => {
   Dessert.find()
-    .then(items => res.status(OK).send(items))
-    .catch(error => {
+    .then((items) => res.status(OK).send(items))
+    .catch((error) => {
       res.sendStatus(BAD_REQUEST);
     });
 });
 
-router.post('/createDessert', verifyDessertAccess, (req, res) => {
+router.post("/createDessert", verifyDessertAccess, (req, res) => {
   const { rating } = req.body;
   const numberSent = !Number.isNaN(Number(rating));
 
@@ -57,20 +50,14 @@ router.post('/createDessert', verifyDessertAccess, (req, res) => {
   });
 });
 
-router.post('/editDessert', verifyDessertAccess, (req, res) => {
-  const {
-    title,
-    description,
-    rating,
-    _id,
-  } = req.body;
+router.post("/editDessert", verifyDessertAccess, (req, res) => {
+  const { title, description, rating, _id } = req.body;
   Dessert.findOne({ _id })
-    .then(Dessert => {
+    .then((Dessert) => {
       Dessert.title = title || Dessert.title;
       Dessert.description = description || Dessert.description;
       Dessert.rating = rating || Dessert.rating;
-     Dessert 
-        .save()
+      Dessert.save()
         .then(() => {
           res.sendStatus(OK);
         })
@@ -83,9 +70,9 @@ router.post('/editDessert', verifyDessertAccess, (req, res) => {
     });
 });
 
-router.post('/deleteDessert', verifyDessertAccess, (req, res) => {
+router.post("/deleteDessert", verifyDessertAccess, (req, res) => {
   Dessert.deleteOne({ _id: req.body._id })
-    .then(result => {
+    .then((result) => {
       if (result.n < 1) {
         res.sendStatus(NOT_FOUND);
       } else {

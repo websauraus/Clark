@@ -24,6 +24,8 @@ import CreateEventPage from './Pages/Events/CreateEventPage.js';
 import EventRegistration from './Pages/Events/EventsRegistration.js';
 import EditEventPage from './Pages/Events/EditEventPage.js';
 import EventAttendeesDashboard from './Pages/Events/EventAttendeesDashboard.js';
+import DessertPage from './Pages/Desserts/Desserts.js';
+import DessertAdmin from './Pages/Desserts/AdminDesserts.js';
 
 // Declare an enum for permission check
 export const allowedIf = {
@@ -206,6 +208,13 @@ export const officerOrAdminRoutes = [
     inAdminNavbar: true,
     hideFromShortcutSuggestions: true
   },
+  {
+    Component: DessertAdmin,
+    path: '/desserts-admin',
+    allowedIf: allowedIf.OFFICER_OR_ADMIN,
+    redirect: '/',
+    inAdminNavbar: true
+  },
   ...memberRoutes,
 ];
 
@@ -253,5 +262,9 @@ export const signedOutRoutes = [
     path: '/emailPreferences',
     pageName: 'Email Preferences',
     hideFromShortcutSuggestions: true
+  },
+  {
+    Component: DessertPage,
+    path: '/desserts'
   },
 ];

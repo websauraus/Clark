@@ -4,8 +4,31 @@ const Dessert = require('../models/Dessert');
 const {
   OK,
   BAD_REQUEST,
-  NOT_FOUND
+  NOT_FOUND,
+  FORBIDDEN,
+  UNAUTHORIZED
 } = require('../../util/constants').STATUS_CODES;
+const {
+  OFFICER
+} = require('../../util/constants').MEMBERSHIP_STATE;
+const { decodeToken } = require('../util/token-functions');
+const User = require('../models/User.js');
+
+async function verifyDessertAccess(req, res, next) {
+  const decoded = await decodeToken(req, OFFICER);
+
+  if (!decoded || decoded.status === FORBIDDEN) {
+    return res.sendStatus(FORBIDDEN); // 403
+  }
+
+  if (decoded.status !== OK) {
+    return res.sendStatus(UNAUTHORIZED); // 401
+  }
+
+  req.user = decoded.token;
+
+  next();
+}
 
 router.get('/getDesserts', (req, res) => {
   Dessert.find()
@@ -15,7 +38,7 @@ router.get('/getDesserts', (req, res) => {
     });
 });
 
-router.post('/createDessert', (req, res) => {
+router.post('/createDessert', verifyDessertAccess, (req, res) => {
   const { rating } = req.body;
   const numberSent = !Number.isNaN(Number(rating));
 
@@ -34,7 +57,7 @@ router.post('/createDessert', (req, res) => {
   });
 });
 
-router.post('/editDessert', (req, res) => {
+router.post('/editDessert', verifyDessertAccess, (req, res) => {
   const {
     title,
     description,
@@ -60,7 +83,7 @@ router.post('/editDessert', (req, res) => {
     });
 });
 
-router.post('/deleteDessert', (req, res) => {
+router.post('/deleteDessert', verifyDessertAccess, (req, res) => {
   Dessert.deleteOne({ _id: req.body._id })
     .then(result => {
       if (result.n < 1) {
@@ -85,6 +108,6 @@ const STATUS_CODES = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   TOO_MANY_REQUESTS: 429,
-  SERVER_ERROR: 500,
+  SERVER_ERROR: 502,
 };
 */
